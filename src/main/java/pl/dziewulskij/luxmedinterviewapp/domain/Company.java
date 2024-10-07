@@ -31,9 +31,13 @@ public class Company {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @Builder.Default
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(
+            mappedBy = "company",
+            cascade = CascadeType.REMOVE,
+            fetch = FetchType.EAGER
+    )
     Set<Department> departments = new HashSet<>();
+
 
     public List<Long> getDepartmentIds() {
         return Stream.ofNullable(this.getDepartments())

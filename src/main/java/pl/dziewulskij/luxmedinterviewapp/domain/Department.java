@@ -27,7 +27,7 @@ public class Department {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @Builder.Default
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.REMOVE)
     Set<Team> teams = new HashSet<>();
 
     @ManyToOne
