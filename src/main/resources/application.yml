@@ -1,0 +1,9 @@
+server.port: 8080
+
+spring:
+  application:
+    name: luxmed-interview-app
+  profiles.active: local
+  config:
+    import:
+      - classpath:properties/persistence.yml

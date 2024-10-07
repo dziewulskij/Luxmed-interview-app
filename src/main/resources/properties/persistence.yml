@@ -1,0 +1,23 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    locations:
+      - classpath:db/migration
+      - classpath:db/migration/v1
+
+---
+
+spring:
+  config.activate.on-profile: 'local'
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/LuxMedDb
+    username: luxmed_user
+    password: luxmed_pass
+    driver-class-name: org.postgresql.Driver
