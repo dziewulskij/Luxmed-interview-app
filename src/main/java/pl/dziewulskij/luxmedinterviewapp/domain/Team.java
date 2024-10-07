@@ -3,6 +3,7 @@ package pl.dziewulskij.luxmedinterviewapp.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import pl.dziewulskij.luxmedinterviewapp.domain.department.Department;
 
 @Entity
 @Setter

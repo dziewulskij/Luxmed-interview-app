@@ -1,9 +1,10 @@
-package pl.dziewulskij.luxmedinterviewapp.domain;
+package pl.dziewulskij.luxmedinterviewapp.domain.company;
 
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import pl.dziewulskij.luxmedinterviewapp.api.company.model.CompanyRequest;
+import pl.dziewulskij.luxmedinterviewapp.domain.department.Department;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -31,9 +32,10 @@ public class Company {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @Builder.Default
     @OneToMany(
             mappedBy = "company",
-            cascade = CascadeType.REMOVE,
+            cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
     Set<Department> departments = new HashSet<>();
@@ -46,12 +48,26 @@ public class Company {
                 .collect(Collectors.toList());
     }
 
-    public void update(CompanyRequest request) {
+    public void update(CompanyRequest request, List<Department> newDepartments) {
         this.name = request.name();
-        this.departments = Stream.ofNullable(request.departmentIds())
-                .flatMap(Collection::stream)
-                .map(Department::ofId)
-                .collect(Collectors.toSet());
+        this.departments.stream()
+                .filter(department -> !newDepartments.contains(department))
+                .collect(Collectors.toSet())
+                .forEach(this::removeDepartment);
+
+        newDepartments.forEach(this::addDepartment);
+    }
+
+    public void addDepartment(Department department) {
+        if (!this.getDepartments().contains(department)) {
+            this.departments.add(department);
+            department.setCompany(this);
+        }
+    }
+
+    public void removeDepartment(Department department) {
+        this.departments.remove(department);
+        department.setCompany(null);
     }
 
 }

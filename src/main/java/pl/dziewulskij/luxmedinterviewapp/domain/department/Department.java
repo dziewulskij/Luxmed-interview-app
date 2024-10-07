@@ -1,8 +1,10 @@
-package pl.dziewulskij.luxmedinterviewapp.domain;
+package pl.dziewulskij.luxmedinterviewapp.domain.department;
 
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import pl.dziewulskij.luxmedinterviewapp.domain.Team;
+import pl.dziewulskij.luxmedinterviewapp.domain.company.Company;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +17,7 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "DEPARTMENT")
+@EqualsAndHashCode
 public class Department {
 
     @Id
@@ -30,6 +33,8 @@ public class Department {
     @OneToMany(mappedBy = "department", cascade = CascadeType.REMOVE)
     Set<Team> teams = new HashSet<>();
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne
     @JoinColumn(name = "company_id")
     Company company;

@@ -1,4 +1,4 @@
-package pl.dziewulskij.luxmedinterviewapp.domain;
+package pl.dziewulskij.luxmedinterviewapp.domain.company;
 
 import java.util.List;
 
