@@ -4,6 +4,15 @@ spring:
   application:
     name: luxmed-interview-app
   profiles.active: local
-  config:
-    import:
-      - classpath:properties/persistence.yml
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    locations:
+      - classpath:db/migration
+      - classpath:db/migration/v1
+  datasource:
+    url: jdbc:postgresql://localhost:5432/LuxMedDb
+    username: luxmed_user
+    password: luxmed_pass
+    driver-class-name: org.postgresql.Driver

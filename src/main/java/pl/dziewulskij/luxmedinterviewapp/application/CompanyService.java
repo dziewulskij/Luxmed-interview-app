@@ -16,7 +16,7 @@ import pl.dziewulskij.luxmedinterviewapp.domain.department.DepartmentRepository;
 public class CompanyService {
 
     private final CompanyRepository companyRepository;
-    private final CompanyValidator companyCreationValidator;
+    private final CompanyValidator companyValidator;
     private final DepartmentRepository departmentRepository;
 
     public CompanyCollectionResponse getAllCompanies() {
@@ -31,7 +31,7 @@ public class CompanyService {
 
     @Transactional
     public CompanyResponse createCompany(CompanyRequest request) {
-        companyCreationValidator.validateCreation(request);
+        companyValidator.validateCreation(request);
         var company = CompanyMapper.toEntity(request);
         departmentRepository.findAllByIds(request.departmentIds()).forEach(company::addDepartment);
         companyRepository.save(company);
@@ -40,7 +40,7 @@ public class CompanyService {
 
     @Transactional
     public CompanyResponse updateCompany(Long id, CompanyRequest request) {
-        companyCreationValidator.validateModification(request);
+        companyValidator.validateModification(request);
         var company = companyRepository.findByIdOrElseThrow(id);
         var newDepartments = departmentRepository.findAllByIds(request.departmentIds());
         company.update(request, newDepartments);
@@ -48,7 +48,7 @@ public class CompanyService {
         return CompanyMapper.toResponse(company);
     }
 
-    public void deleteCompany(Long id) {
+    public void deleteCompanyById(Long id) {
         companyRepository.deleteByIdOrElseThrow(id);
     }
 
