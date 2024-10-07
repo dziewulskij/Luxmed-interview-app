@@ -4,7 +4,7 @@ import pl.dziewulskij.luxmedinterviewapp.api.company.model.CompanyRequest
 
 class CompanyRequestFaker extends AbstractFaker {
 
-    static fakeCompanyRequest() {
+    static fake() {
         return new CompanyRequest(
                 faker.name().title(),
                 [

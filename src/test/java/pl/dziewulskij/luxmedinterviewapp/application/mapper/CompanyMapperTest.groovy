@@ -8,7 +8,7 @@ class CompanyMapperTest extends Specification {
 
     def "should map Company to CompanyResponse"() {
         given:
-        def company = CompanyFaker.fakeCompany()
+        def company = CompanyFaker.fake()
 
         when:
         def result = CompanyMapper.toResponse(company)
@@ -23,8 +23,8 @@ class CompanyMapperTest extends Specification {
 
     def "should map collection of Company to CompanyCollectionResponse"() {
         given:
-        def company1 = CompanyFaker.fakeCompany()
-        def company2 = CompanyFaker.fakeCompany()
+        def company1 = CompanyFaker.fake()
+        def company2 = CompanyFaker.fake()
 
         when:
         def result = CompanyMapper.toResponse([company1, company2])

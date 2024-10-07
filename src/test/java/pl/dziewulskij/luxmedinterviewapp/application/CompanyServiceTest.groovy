@@ -24,8 +24,8 @@ class CompanyServiceTest extends Specification {
 
     def 'should return all companies'() {
         given:
-        def company1 = CompanyFaker.fakeCompany()
-        def company2 = CompanyFaker.fakeCompany()
+        def company1 = CompanyFaker.fake()
+        def company2 = CompanyFaker.fake()
         1 * companyRepository.findAll() >> [company1, company2]
 
         when:
@@ -45,7 +45,7 @@ class CompanyServiceTest extends Specification {
 
     def 'should return company by id'() {
         given:
-        def company = CompanyFaker.fakeCompany()
+        def company = CompanyFaker.fake()
         1 * companyRepository.findByIdOrElseThrow(_ as Long) >> company
 
         when:
@@ -61,9 +61,9 @@ class CompanyServiceTest extends Specification {
 
     def 'should create company'() {
         given:
-        def companyRequest = CompanyRequestFaker.fakeCompanyRequest()
+        def companyRequest = CompanyRequestFaker.fake()
         1 * companyValidator.validateCreation(companyRequest)
-        1 * departmentRepository.findAllByIds(companyRequest.departmentIds()) >> [DepartmentFaker.fakeDepartment()]
+        1 * departmentRepository.findAllByIds(companyRequest.departmentIds()) >> [DepartmentFaker.fake()]
         1 * companyRepository.save(_ as Company)
 
         when:
@@ -78,7 +78,7 @@ class CompanyServiceTest extends Specification {
 
     def 'should throw exception when create company'() {
         given:
-        def companyRequest = CompanyRequestFaker.fakeCompanyRequest()
+        def companyRequest = CompanyRequestFaker.fake()
         1 * companyValidator.validateCreation(_ as CompanyRequest) >> { throw new RuntimeException() }
         0 * departmentRepository.findAllByIds(_ as Collection)
         0 * companyRepository.save(_ as Company)
@@ -92,11 +92,11 @@ class CompanyServiceTest extends Specification {
 
     def 'should update company'() {
         given:
-        def companyRequest = CompanyRequestFaker.fakeCompanyRequest()
-        def company = CompanyFaker.fakeCompany()
+        def companyRequest = CompanyRequestFaker.fake()
+        def company = CompanyFaker.fake()
         1 * companyValidator.validateModification(companyRequest)
         1 * companyRepository.findByIdOrElseThrow(_ as Long) >> company
-        1 * departmentRepository.findAllByIds(companyRequest.departmentIds()) >> [DepartmentFaker.fakeDepartment()]
+        1 * departmentRepository.findAllByIds(companyRequest.departmentIds()) >> [DepartmentFaker.fake()]
         1 * companyRepository.save(company)
 
         when:
@@ -108,7 +108,7 @@ class CompanyServiceTest extends Specification {
 
     def 'should throw exception when update company'() {
         given:
-        def companyRequest = CompanyRequestFaker.fakeCompanyRequest()
+        def companyRequest = CompanyRequestFaker.fake()
         1 * companyValidator.validateModification(_ as CompanyRequest) >> { throw new RuntimeException() }
         0 * companyRepository.findByIdOrElseThrow(_ as Long)
         0 * departmentRepository.findAllByIds(_ as Collection)

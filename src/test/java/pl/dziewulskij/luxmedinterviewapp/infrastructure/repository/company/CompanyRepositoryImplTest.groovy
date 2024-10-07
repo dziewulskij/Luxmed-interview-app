@@ -19,7 +19,7 @@ class CompanyRepositoryImplTest extends Specification {
 
     def "should invoke repository method when find company by id"() {
         given:
-        def company = CompanyFaker.fakeCompany()
+        def company = CompanyFaker.fake()
         1 * companyJpaRepository.findById(_ as Long) >> Optional.of(company)
 
         when:
@@ -46,7 +46,7 @@ class CompanyRepositoryImplTest extends Specification {
 
     def "should invoke repository method when save company"() {
         given:
-        def company = CompanyFaker.fakeCompany()
+        def company = CompanyFaker.fake()
 
         when:
         companyRepository.save(company)

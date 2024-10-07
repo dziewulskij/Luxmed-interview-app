@@ -4,14 +4,14 @@ import pl.dziewulskij.luxmedinterviewapp.domain.company.Company
 
 class CompanyFaker extends AbstractFaker {
 
-    static fakeCompany() {
+    static fake() {
         return Company.builder()
                 .id(faker.number().randomNumber())
                 .name(faker.name().title())
                 .departments(
                         [
-                                DepartmentFaker.fakeDepartment(),
-                                DepartmentFaker.fakeDepartment()
+                                DepartmentFaker.fake(),
+                                DepartmentFaker.fake()
                         ].toSet()
                 )
                 .build()
