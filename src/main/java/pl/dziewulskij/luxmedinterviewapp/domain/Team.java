@@ -21,7 +21,7 @@ public class Team {
     @Column(name = "name", nullable = false, length = 70)
     String name;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne
     @JoinColumn(name = "project_id", referencedColumnName = "id")
     Project project;
 

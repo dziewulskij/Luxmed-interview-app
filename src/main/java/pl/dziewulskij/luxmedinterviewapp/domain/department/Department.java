@@ -30,7 +30,7 @@ public class Department {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @Builder.Default
-    @OneToMany(mappedBy = "department", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "department")
     Set<Team> teams = new HashSet<>();
 
     @ToString.Exclude

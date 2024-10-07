@@ -23,7 +23,7 @@ public class Project {
     @OneToOne(mappedBy = "project")
     Team team;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "manager_id", referencedColumnName = "id")
     Manager manager;
 

@@ -33,11 +33,7 @@ public class Company {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @Builder.Default
-    @OneToMany(
-            mappedBy = "company",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
-    )
+    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
     Set<Department> departments = new HashSet<>();
 
 
