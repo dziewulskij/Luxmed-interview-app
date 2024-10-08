@@ -1,56 +1,63 @@
-# Uruchomienie aplikacji
+# Running the Application
 
-## Opcja 1. Uruchomienie aplikacji za pomocą docker-compose
+## Option 1. Running the application using docker-compose
 
-Jeśli chcesz, aby zarówno aplikacja, jak i baza danych PostgreSQL zostały uruchomione automatycznie, użyj pliku
-docker-compose.yml, który znajduje się w katalogu ./docker.
+If you want both the application and the PostgreSQL database to be automatically started, use the
+`docker-compose.yml` file located in the `./docker` directory.
 
-### 1. Przejdź do katalogu docker
+### 1. Navigate to the docker directory
 
-W terminalu przejdź do katalogu docker, gdzie znajduje się plik docker-compose.yml
+In the terminal, navigate to the `docker` directory where the `docker-compose.yml` file is located.
 
-### 2. Uruchom docker-compose
+### 2. Run docker-compose
 
-Uruchom obie usługi (Spring Boot oraz PostgreSQL) za pomocą:
+Start both services (Spring Boot and PostgreSQL) by running:
 `docker-compose up --build`
 
-Polecenie to zbuduje aplikację, uruchomi bazę danych PostgreSQL i aplikację Spring Boot.
-Aplikacja będzie dostępna pod adresem: http://localhost:8080
+This command will build the application, start the PostgreSQL database, and the Spring Boot application.  
+The application will be accessible at: http://localhost:8080
 
 ### 3. Swagger
 
-Po uruchomieniu aplikacji, dokumentacja API w Swaggerze będzie dostępna pod adresem:
+After starting the application, the API documentation via Swagger will be available at:  
 http://localhost:8080/swagger-ui/index.html
 
 ---
 
-## Opcja 2. Uruchomienie aplikacji z użyciem Dockerfile i ręcznie uruchomionej bazy PostgreSQL
+## Option 2. Running the application using Dockerfile and manually starting PostgreSQL
 
-### 1. Zbuduj obraz aplikacji Spring Boot
+### 1. Build the Spring Boot application image
 
-Aby zbudować obraz aplikacji, wykonaj polecenie w katalogu głównym projektu, gdzie znajduje się plik Dockerfile:
+To build the application image, run the following command in the project's root directory where the `Dockerfile` is
+located:  
 `docker build -t luxmed-app:tag .`
 
-### 2. Uruchom bazę danych PostgreSQL
+### 2. Start the PostgreSQL database
 
-Możesz uruchomić kontener PostgreSQL za pomocą następującego polecenia:
-`docker run --name postgres-db
--e POSTGRES_USER=luxmed_user
--e POSTGRES_PASSWORD=luxmed_pass
--e POSTGRES_DB=LuxMedDb
--p 5432:5432 -d postgres:15.2`
+You can start the PostgreSQL container using the following command:
 
-### 3. Uruchom aplikację Spring Boot
+```bash
+docker run --name postgres-db \
+-e POSTGRES_USER=luxmed_user \
+-e POSTGRES_PASSWORD=luxmed_pass \
+-e POSTGRES_DB=LuxMedDb \
+-p 5432:5432 -d postgres:15.2
+```
 
-Po uruchomieniu bazy danych możesz uruchomić aplikację:
-`docker run --name luxmed-app --link postgres-db:db
--e APP_DATASOURCE_HOST=db:5432/mydb
--e APP_DATASOURCE_USERNAME=luxmed_user
--e APP_DATASOURCE_PASSWORD=luxmed_pass
--p 8080:8080 luxmed-app:tag`
+### 3. Run the Spring Boot application
+
+After starting the database, you can start the application by running:
+
+```bash
+docker run --name luxmed-app --link postgres-db:db \
+-e APP_DATASOURCE_HOST=db:5432/mydb \
+-e APP_DATASOURCE_USERNAME=luxmed_user \
+-e APP_DATASOURCE_PASSWORD=luxmed_pass \
+-p 8080:8080 luxmed-app:tag
+```
 
 ### 4. Swagger
 
-Po uruchomieniu aplikacji, dokumentacja API w Swaggerze będzie dostępna pod adresem:
+After starting the application, the API documentation via Swagger will be available at:
 http://localhost:8080/swagger-ui/index.html
 
