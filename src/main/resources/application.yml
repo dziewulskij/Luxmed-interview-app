@@ -3,7 +3,6 @@ server.port: 8080
 spring:
   application:
     name: luxmed-interview-app
-  profiles.active: local
   jpa:
     hibernate:
       ddl-auto: validate
@@ -12,7 +11,13 @@ spring:
       - classpath:db/migration
       - classpath:db/migration/v1
   datasource:
-    url: jdbc:postgresql://localhost:5432/LuxMedDb
-    username: luxmed_user
-    password: luxmed_pass
+    url: jdbc:postgresql://${app.db.host}/${app.db.name}
+    username: ${app.db.username}
+    password: ${app.db.password}
     driver-class-name: org.postgresql.Driver
+
+app.db:
+  host: localhost:5432
+  name: LuxMedDb
+  username: luxmed_user
+  password: luxmed_pass
