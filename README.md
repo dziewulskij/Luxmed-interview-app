@@ -49,11 +49,13 @@ docker run --name postgres-db \
 After starting the database, you can start the application by running:
 
 ```bash
-docker run --name luxmed-app --link postgres-db:db \
--e APP_DATASOURCE_HOST=db:5432/mydb \
--e APP_DATASOURCE_USERNAME=luxmed_user \
--e APP_DATASOURCE_PASSWORD=luxmed_pass \
--p 8080:8080 luxmed-app:tag
+docker run -d --name luxmed-app \
+--link postgres-db:db \
+-e APP_DB_HOST=db:5432 \
+-e APP_DB_NAME=LuxMedDb \
+-e APP_DB_USERNAME=luxmed_user \
+-e APP_DB_PASSWORD=luxmed_pass \
+-p 8080:8080 luxmed-app:1.1.1
 ```
 
 ### 4. Swagger
